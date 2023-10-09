@@ -8,3 +8,13 @@ header {
     margin: 10px;
     text-align: center;
 }
+
+.container-md {
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.container-1 {
+    flex-direction: column;
+    margin-right: 200px;
+}
