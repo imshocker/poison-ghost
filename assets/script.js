@@ -1,5 +1,6 @@
 let searchBtn = document.querySelector("#form-search")
 let previousSearchBtns = document.querySelector("#previous-searches")
+// let searchSubmitVal = document.querySelector("#search-submit").value
 
 let previousSearches = []
 
@@ -18,10 +19,9 @@ function searchSubmit(event) {
 
         displayPreviousSearches()
 
-        document.querySelector("#search-submit").value = ""
-
 
     }
+    fetchCity()
 }
 
 searchBtn.addEventListener("click", searchSubmit)
@@ -62,5 +62,47 @@ function attachClickEventToButtons() {
             searchSubmit()
         })
     })
+}
+
+function fetchCity() {
+    let searchSubmitVal = document.querySelector("#search-submit").value
+
+    //request for coordinates 
+    let locationRequest = `http://api.openweathermap.org/geo/1.0/direct?q=${searchSubmitVal},US&limit=1&appid=573fc79e941f0079c4284533a0b3f78a`
+
+    fetch(locationRequest)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+
+            // console.log(locationRequest)
+            let cityLat = data[0].lat
+            let cityLon = data[0].lon
+
+            //request for current day weather
+            let searchRequest1 = `https://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&appid=573fc79e941f0079c4284533a0b3f78a`
+
+            //request for 5 day forecast
+            let searchRequest2 = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&appid=573fc79e941f0079c4284533a0b3f78a`
+
+            fetch(searchRequest1)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    console.log(data);
+
+
+                    return
+                })
+
+
+        })
+
+
+
+
 }
 

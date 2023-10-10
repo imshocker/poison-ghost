@@ -33,7 +33,7 @@ hr.rounded {
 
 
 
-/* Media query to hide the previous searches on smaller screens (e.g., screens with a max-width of 768px) */
+/* Media queries to format the screen based on screen sizes*/
 @media (max-width: 768px) {
     .previous-search-container {
         display: none;
