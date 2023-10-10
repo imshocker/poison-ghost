@@ -18,3 +18,40 @@ header {
     flex-direction: column;
     margin-right: 200px;
 }
+
+/* Rounded border */
+hr.rounded {
+    border-top: 2px solid #5a5a5a;
+    border-radius: 5px;
+    margin: 23px;
+  }
+
+
+#previous-searches {
+    margin-left: 10px; /* Adjust the top margin for spacing */
+}
+
+
+
+/* Media query to hide the previous searches on smaller screens (e.g., screens with a max-width of 768px) */
+@media (max-width: 768px) {
+    .previous-search-container {
+        display: none;
+    }
+}
+
+@media (max-width: 575px) {
+    .container-1 {
+        display: flex;
+        margin: 20px;
+        
+    }
+}
+
+@media (max-width: 575px) {
+    .container-md {
+        display: flex;
+        margin: 0px;
+        
+    }
+}
