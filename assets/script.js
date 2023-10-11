@@ -1,5 +1,6 @@
 let searchBtn = document.querySelector("#form-search")
 let previousSearchBtns = document.querySelector("#previous-searches")
+let cIconImage = document.getElementById("icon") 
 let currentDayCityEl = document.getElementById("current-city")
 let currentDayTempEl = document.getElementById("temp")
 let currentDayWindEl = document.getElementById("wind")
@@ -9,30 +10,58 @@ let day1TempEl = document.getElementById("day-1-temp")
 let day1WindEl = document.getElementById("day-1-wind")
 let day1HumidEl = document.getElementById("day-1-humidity")
 let date1El = document.getElementById("date-1")
+let day1Icon = document.getElementById("icon1")
 
 let day2TempEl = document.getElementById("day-2-temp")
 let day2WindEl = document.getElementById("day-2-wind")
 let day2HumidEl = document.getElementById("day-2-humidity")
 let date2El = document.getElementById("date-2")
+let day2Icon = document.getElementById("icon2")
 
 let day3TempEl = document.getElementById("day-3-temp")
 let day3WindEl = document.getElementById("day-3-wind")
 let day3HumidEl = document.getElementById("day-3-humidity")
 let date3El = document.getElementById("date-3")
+let day3Icon = document.getElementById("icon3")
 
 let day4TempEl = document.getElementById("day-4-temp")
 let day4WindEl = document.getElementById("day-4-wind")
 let day4HumidEl = document.getElementById("day-4-humidity")
 let date4El = document.getElementById("date-4")
+let day4Icon = document.getElementById("icon4")
+
 
 let day5TempEl = document.getElementById("day-5-temp")
 let day5WindEl = document.getElementById("day-5-wind")
 let day5HumidEl = document.getElementById("day-5-humidity")
 let date5El = document.getElementById("date-5")
+let day5Icon = document.getElementById("icon5")
+
 
 
 let previousSearches = []
 
+//hides weather icon until search is made
+function hideWeatherIcon() {
+    cIconImage.style.display = "none"
+    day1Icon.style.display = "none"
+    day2Icon.style.display = "none"
+    day3Icon.style.display = "none"
+    day4Icon.style.display = "none"
+    day5Icon.style.display = "none"
+}
+hideWeatherIcon()
+
+
+//shows weather icon once searchSubmit runs
+function showWeatherIcon() {
+    cIconImage.style.display = "block"
+    day1Icon.style.display = "block"
+    day2Icon.style.display = "block"
+    day3Icon.style.display = "block"
+    day4Icon.style.display = "block"
+    day5Icon.style.display = "block"
+}
 
 
 // User input is entered/stored
@@ -54,6 +83,7 @@ function searchSubmit(event) {
 
     }
     fetchCity()
+    showWeatherIcon()
 }
 
 searchBtn.addEventListener("click", searchSubmit)
@@ -71,7 +101,15 @@ function displayPreviousSearches() {
             let button = document.createElement("button")
             button.textContent = searchQuery
             button.classList.add("btn", "btn-outline-secondary", "bg-primary", "text-light", "my-2")
+            button.setAttribute("data-search", searchQuery); // Set a custom attribute with the search query
             previousSearchBtns.appendChild(button)
+
+            // Add a click event listener to the previous search button
+            button.addEventListener("click", function () {
+                let searchQuery = this.getAttribute("data-search");
+                document.querySelector("#search-submit").value = searchQuery;
+                searchSubmit(event);
+            });
         }
     } else {
         previousSearchBtns.style.display = "none"
@@ -81,21 +119,6 @@ function displayPreviousSearches() {
 displayPreviousSearches()
 
 
-function attachClickEventToButtons() {
-    let buttons = previousSearchBtns.querySelectorAll("button")
-    buttons.forEach((button) => {
-        button.addEventListener("click", () => {
-            // Retrieve the search query from the button's text content
-            let searchQuery = button.textContent
-
-            // Set the search input field's value to the selected query
-            document.querySelector("#search-submit").value = searchQuery
-
-            // Call the searchSubmit function to trigger the search
-            searchSubmit(searchQuery)
-        })
-    })
-}
 
 
 
@@ -123,18 +146,27 @@ function fetchCity() {
 
             //------------------------------------------------------------------------------------------------------
 
+            
+            //https://openweathermap.org/img/wn/10d@2x.png
+
             fetch(searchRequest1)
                 .then(function (response) {
                     return response.json()
                 })
                 .then(function (data) {
                     console.log(data)
-                    var rightNow = dayjs().format('MMM DD, YYYY')
+                    let rightNow = dayjs().format('MMM DD, YYYY')
 
+                    let currentIcon = data.weather[0].icon
                     let currentCity = data.name
                     let currentDayTemp = data.main.temp
                     let currentDayHumid = data.main.humidity
                     let currentDayWind = data.wind.speed
+
+                    
+                    cIconImage.src = `https://openweathermap.org/img/wn/${currentIcon}@2x.png` 
+
+
 
                     currentDayCityEl.textContent = currentCity + " " + rightNow
                     currentDayTempEl.textContent = "Temp: " + currentDayTemp + " °F\n"
@@ -142,7 +174,7 @@ function fetchCity() {
                     currentDayWindEl.textContent = "Wind: " + currentDayWind + " MPH"
                 })
 
-            //--------------------------------------------------------------------------------------------------
+            //------------------------------------------------------------------------------------------------------
 
             fetch(searchRequest2)
                 .then(function (response) {
@@ -151,6 +183,7 @@ function fetchCity() {
                 .then(function (data) {
                     console.log(data)
 
+                    let = fiveDayIcon = data.list[5].weather[0].icon
 
                     let day1Temp = data.list[5].main.temp
                     let day1Wind = data.list[5].wind.speed
@@ -176,6 +209,12 @@ function fetchCity() {
                     let day5Wind = data.list[37].wind.speed
                     let day5Humid = data.list[37].main.humidity
                     let fifthDay = dayjs().add(5, 'day').format('MMM DD, YYYY')
+
+                    day1Icon.src = `https://openweathermap.org/img/wn/${fiveDayIcon}@2x.png`
+                    day2Icon.src = `https://openweathermap.org/img/wn/${fiveDayIcon}@2x.png`
+                    day3Icon.src = `https://openweathermap.org/img/wn/${fiveDayIcon}@2x.png`
+                    day4Icon.src = `https://openweathermap.org/img/wn/${fiveDayIcon}@2x.png`
+                    day5Icon.src = `https://openweathermap.org/img/wn/${fiveDayIcon}@2x.png`
 
                     day1TempEl.textContent = "Temp: " + day1Temp + " °F\n"
                     day1WindEl.textContent = "Wind: " + day1Wind + " MPH"
@@ -208,6 +247,7 @@ function fetchCity() {
 
 
 }
+
 
 
 
