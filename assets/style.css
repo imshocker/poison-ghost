@@ -9,6 +9,10 @@ header {
     text-align: center;
 }
 
+.card-header {
+    font-weight: bold;
+}
+
 .container-md {
     flex-direction: column;
     margin-left: 10px;
