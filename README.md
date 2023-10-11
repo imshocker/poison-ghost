@@ -8,7 +8,7 @@ Thid application is used to track weather conditions. Type the name of a US city
 
 
 Link to Deployed Application:
-https://imshocker.github.io/posion-ghost/
+https://imshocker.github.io/poison-ghost/
 
 ## Installation
 
