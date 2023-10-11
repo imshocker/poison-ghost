@@ -1,6 +1,5 @@
 let searchBtn = document.querySelector("#form-search")
 let previousSearchBtns = document.querySelector("#previous-searches")
-// let searchSubmitVal = document.querySelector("#search-submit").value
 let currentDayCityEl = document.getElementById("current-city")
 let currentDayTempEl = document.getElementById("temp")
 let currentDayWindEl = document.getElementById("wind")
@@ -33,6 +32,8 @@ let date5El = document.getElementById("date-5")
 
 
 let previousSearches = []
+
+
 
 // User input is entered/stored
 function searchSubmit(event) {
@@ -96,6 +97,8 @@ function attachClickEventToButtons() {
     })
 }
 
+
+
 function fetchCity() {
     let searchSubmitVal = document.querySelector("#search-submit").value
 
@@ -118,26 +121,28 @@ function fetchCity() {
             // Request for 5 day forecast
             let searchRequest2 = `https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&units=imperial&appid=573fc79e941f0079c4284533a0b3f78a`
 
+            //------------------------------------------------------------------------------------------------------
+
             fetch(searchRequest1)
                 .then(function (response) {
                     return response.json()
                 })
                 .then(function (data) {
                     console.log(data)
+                    var rightNow = dayjs().format('MMM DD, YYYY')
 
-                    //list from data : main.humidity, main.temp, wind.speed
-                    // return
-                    // let currentDayIcon = data.weather[0].icon
                     let currentCity = data.name
                     let currentDayTemp = data.main.temp
                     let currentDayHumid = data.main.humidity
                     let currentDayWind = data.wind.speed
 
-                    currentDayCityEl.textContent = currentCity /*+ " " + currentDayIcon*/
+                    currentDayCityEl.textContent = currentCity + " " + rightNow
                     currentDayTempEl.textContent = "Temp: " + currentDayTemp + " °F\n"
                     currentDayHumidEl.textContent = "Humidity: " + currentDayHumid + " %"
                     currentDayWindEl.textContent = "Wind: " + currentDayWind + " MPH"
                 })
+
+            //--------------------------------------------------------------------------------------------------
 
             fetch(searchRequest2)
                 .then(function (response) {
@@ -146,61 +151,65 @@ function fetchCity() {
                 .then(function (data) {
                     console.log(data)
 
-                    //list from data: 5.main.humidity, 5.main.temp, 5.wind.speed
-                    //                13.main.humidity, 13.main.temp, 13.wind.speed 
-                    //                21.main.humidity, 21.main.temp, 21.wind.speed
-                    //                29.main.humidity, 29.main.temp, 29.wind.speed
-                    //                37.main.humidity, 37.main.temp, 37.wind.speed
-                    // return
+
                     let day1Temp = data.list[5].main.temp
                     let day1Wind = data.list[5].wind.speed
                     let day1Humid = data.list[5].main.humidity
-                    let day1Date = data.list[5].dt_txt
+                    let firstDay = dayjs().add(1, 'day').format('MMM DD, YYYY')
+
                     let day2Temp = data.list[13].main.temp
                     let day2Wind = data.list[13].wind.speed
                     let day2Humid = data.list[13].main.humidity
-                    let day2Date = data.list[13].dt_txt
+                    let secondDay = dayjs().add(2, 'day').format('MMM DD, YYYY')
+
                     let day3Temp = data.list[21].main.temp
                     let day3Wind = data.list[21].wind.speed
                     let day3Humid = data.list[21].main.humidity
-                    let day3Date = data.list[21].dt_txt
+                    let thirdDay = dayjs().add(3, 'day').format('MMM DD, YYYY')
+
                     let day4Temp = data.list[29].main.temp
                     let day4Wind = data.list[29].wind.speed
                     let day4Humid = data.list[29].main.humidity
-                    let day4Date = data.list[29].dt_txt
+                    let fourthDay = dayjs().add(4, 'day').format('MMM DD, YYYY')
+
                     let day5Temp = data.list[37].main.temp
                     let day5Wind = data.list[37].wind.speed
                     let day5Humid = data.list[37].main.humidity
-                    let day5Date = data.list[37].dt_txt
+                    let fifthDay = dayjs().add(5, 'day').format('MMM DD, YYYY')
 
                     day1TempEl.textContent = "Temp: " + day1Temp + " °F\n"
                     day1WindEl.textContent = "Wind: " + day1Wind + " MPH"
                     day1HumidEl.textContent = "Humidity: " + day1Humid + " %"
-                    date1El.textContent = day1Date
+                    date1El.textContent = firstDay
+
                     day2TempEl.textContent = "Temp: " + day2Temp + " °F\n"
                     day2WindEl.textContent = "Wind: " + day2Wind + " MPH"
                     day2HumidEl.textContent = "Humidity: " + day2Humid + " %"
-                    date2El.textContent = day2Date
+                    date2El.textContent = secondDay
+
                     day3TempEl.textContent = "Temp: " + day3Temp + " °F\n"
                     day3WindEl.textContent = "Wind: " + day3Wind + " MPH"
                     day3HumidEl.textContent = "Humidity: " + day3Humid + " %"
-                    date3El.textContent = day3Date
+                    date3El.textContent = thirdDay
+
                     day4TempEl.textContent = "Temp: " + day4Temp + " °F\n"
                     day4WindEl.textContent = "Wind: " + day4Wind + " MPH"
                     day4HumidEl.textContent = "Humidity: " + day4Humid + " %"
-                    date4El.textContent = day4Date
+                    date4El.textContent = fourthDay
+
                     day5TempEl.textContent = "Temp: " + day5Temp + " °F\n"
                     day5WindEl.textContent = "Wind: " + day5Wind + " MPH"
                     day5HumidEl.textContent = "Humidity: " + day5Humid + " %"
-                    date5El.textContent = day5Date
-                
-                })
+                    date5El.textContent = fifthDay
 
+                })
 
         })
 
 
-
-
 }
+
+
+
+
 
