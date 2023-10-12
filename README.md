@@ -3,7 +3,7 @@
 ## Description
 This Zachary McDowell's Module 6 Challenge, the Weather Dashboard.
  
-Thid application is used to track weather conditions. Type the name of a US city and be prompted with city's current forecast, as well as the next 5 day's forecast. It will tell you the temperature, wind speed, and humidity levels, plus a little icon to show what the weather is like. 
+This application is used to track weather conditions. Type the name of a US city and be prompted with city's current forecast, as well as the next 5 day's forecast. It will tell you the temperature, wind speed, and humidity levels, plus a little icon to show what the weather is like. 
 ![dashboard-scrnsht](image.png)
 
 
