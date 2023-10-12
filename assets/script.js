@@ -126,7 +126,7 @@ function fetchCity() {
     let searchSubmitVal = document.querySelector("#search-submit").value
 
     // Request for coordinates 
-    let locationRequest = `http://api.openweathermap.org/geo/1.0/direct?q=${searchSubmitVal},US&limit=1&appid=573fc79e941f0079c4284533a0b3f78a`
+    let locationRequest = `https://api.openweathermap.org/geo/1.0/direct?q=${searchSubmitVal},US&limit=1&appid=573fc79e941f0079c4284533a0b3f78a`
 
     fetch(locationRequest)
         .then(function (response) {
